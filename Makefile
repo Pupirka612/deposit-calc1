@@ -1,16 +1,38 @@
-all: bin/main
+CC = g++
+MO = ./build/src/main.o
+DO = ./build/src/deposit.o
+MC = ./src/main.cpp
+DC = ./src/deposit.cpp
+MT = ./test/main.cpp
+DT = ./test/deposit_test.cpp
+VT = ./test/validation_test.cpp
+MTO = ./build/test/main_test.o
+DTO = ./build/test/deposit_test.o
+VTO = ./build/test/validation_test.o
 
-bin/main: build/main.o build/deposit.o
-	mkdir bin -p
-	gcc -Wall -Werror -o bin/main build/deposit.o build/main.o
-build/main.d: src/main.c
-	mkdir build -p
-	gcc -Wall -Werror -c -o build/main.o src/main.c -MP -MMD
-build/deposit.d: src/deposit.c
-	mkdir build -p
-	gcc -Wall -Werror -c -o build/deposit.o src/deposit.c -MP -MMD
-.PHONY: clean
+all: dc test 
+
+dc: $(DO) $(MO)
+	$(CC) $(MO) $(DO) -o ./bin/deposit-calc
+
+test: $(MTO) $(DTO) $(VTO)
+	$(CC) $(MTO) $(DTO) $(VTO) -o ./bin/deposit-calc_test
+
+$(DO): $(DC)
+	$(CC) -c $(DC) -o $(DO)
+
+$(MO): $(MC)
+	$(CC)  -c $(MC) -o $(MO)
+
+$(MTO): $(MT)
+	 $(CC) -c $(MT) -o $(MTO)
+
+$(DTO): $(DT)
+	 $(CC) -c $(DT) -o $(DTO)
+
+$(VTO): $(VT)
+	 $(CC) -c $(VT) -o $(VTO)
+
 clean:
-	rm build/*
--include build/main.d
--include build/deposit.d
+	rm ./build/test/*.o
+	rm ./build/src/*.o
