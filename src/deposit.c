@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "deposit.h"
+
 int CheckInput(int depDay, int sum)
 {
 	if ((depDay >= 0) && (depDay <= 365) && (sum >= 10000))

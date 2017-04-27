@@ -1,8 +1,17 @@
 #ifndef DEPOSIT_H
 #define DEPOSIT_H
 
-int CheckInput(int depDay, int sum);
+#include <iostream>
+#include <cmath>
+#include <stdio.h>
+#include <cmath>
 
-int CalcSumDeposit(int depDay, int sum);
+using std::cout;
+using std::endl;
+
+int zero(int &d, int ye);
+int one(int &d, int ye);
+int two(int &d, int ye);
+int three(int &d, int ye);
 
 #endif
