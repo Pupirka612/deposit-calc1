@@ -11,10 +11,10 @@ int main (){
 	if ((date>365)||(date<=0)){cout << "incorrect data"; return 0;};
 	if (ye<100) d=1;
 		else d=2;
-	if (date<=30) c=zero(d,ye);
-    	if ((date<=120) && (date>=31)) c=one(d,ye);
-	if ((date<=240) && (date>=121)) c=two(d,ye);
-	if ((date<=365) && (date>=241)) c=three(d,ye);
+	if (date<=30) c=FinalAmount(d,ye);
+    	if ((date<=120) && (date>=31)) c=AmountWhisPercent1(d,ye);
+	if ((date<=240) && (date>=121)) c=AmountWhisPercent2(d,ye);
+	if ((date<=365) && (date>=241)) c=AmountWhisPercent3(d,ye);
 	cout << "Final summ:";
 	cout << c;
 	return 0;

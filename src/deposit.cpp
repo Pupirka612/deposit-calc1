@@ -1,12 +1,12 @@
 #include "deposit.h"
 
-int zero(int &d, int ye){
+int FinalAmount(int &d, int ye){
 	double s=ye;
 	s=s/100*90;
 	return s;
 }
 
-int one(int &d, int ye){
+int AmountWhisPercent1(int &d, int ye){
 	int s=ye;
 	double p;
 	if (d==1)p = 0.02;
@@ -15,7 +15,7 @@ int one(int &d, int ye){
 	return s;
 }
 
-int two(int &d, int ye){
+int AmountWhisPercent2(int &d, int ye){
 	int s=ye;
 	cout << d<< endl;
 	double p;
@@ -26,7 +26,7 @@ int two(int &d, int ye){
 
 }
 
-int three(int &d, int ye){
+int AmountWhisPercent3(int &d, int ye){
 	int s=ye;
 	double p;
 	if (d==1)p = 0.12;
