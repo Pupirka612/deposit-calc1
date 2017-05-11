@@ -1,9 +1,8 @@
-#include <iostream>
 #include <stdlib.h>
+#include "deposit.h"
+#include "ctest.h"
 
-#include "../thirdparty/ctest.h"
-
-CTEST(main1, main1_test)
+CTEST(CheckSrok, GoodTest1)
 {
     int expected1 = 0;
     int expected2 = 365;
@@ -11,7 +10,7 @@ CTEST(main1, main1_test)
     ASSERT_INTERVAL(expected1,expected2,result);
 }
 
-CTEST(main2, main2_test)
+CTEST(CheckSumm, GoodTest2)
 {
     int expected1 = 10;
     int expected2 = 1000000;

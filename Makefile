@@ -1,38 +1,51 @@
-CC = g++
-MO = ./build/src/main.o
-DO = ./build/src/deposit.o
-MC = ./src/main.cpp
-DC = ./src/deposit.cpp
-MT = ./test/main.cpp
-DT = ./test/deposit_test.cpp
-VT = ./test/validation_test.cpp
-MTO = ./build/test/main_test.o
-DTO = ./build/test/deposit_test.o
-VTO = ./build/test/validation_test.o
+CC = gcc
+CFLAGS = -I thirdparty -I src -c -Wall -Werror
+EXECUTABLE = file 
+SOURCES = main.c deposit.c 
+OBJECTS = $(SOURCES: .c=.o)
+DIR = build/src
+DAR = src
+DUR = bin/deposit-calc
 
-all: dc test 
+EXECUTABLE_TEST = testik
+SOURCES_TEST = deposit_test.c main.c validation_test.c
+OBJECTS_TEST = $(SOURCES_TEST: .c=.o)
+DIT = build/test
+DAT = test
+DUT = bin/deposit-calc-test
 
-dc: $(DO) $(MO)
-	$(CC) $(MO) $(DO) -o ./bin/deposit-calc
+all: $(DUR)/$(EXECUTABLE) Testpr
+$(DIR)/main.o: $(DAR)/main.c 
+	@if [ ! -d $(DIR) ] ; then echo "creating $(DIR)" ; mkdir build ; mkdir build/src; fi
+	$(CC) $(CFLAGS) -c $(DAR)/main.c -o $(DIR)/main.o 
 
-test: $(MTO) $(DTO) $(VTO)
-	$(CC) $(MTO) $(DTO) $(VTO) -o ./bin/deposit-calc_test
+$(DIR)/deposit.o: $(DAR)/deposit.c
+	@if [ ! -d $(DIR) ] ; then echo "creating $(DIR)" ; mkdir build ; mkdir build/src; fi
+	$(CC) $(CFLAGS) -c $(DAR)/deposit.c -o $(DIR)/deposit.o 
 
-$(DO): $(DC)
-	$(CC) -c $(DC) -o $(DO)
+$(DUR)/$(EXECUTABLE): $(DIR)/main.o $(DIR)/deposit.o
+	@if [ ! -d $(DUR) ] ; then echo "creating $(DUR)" ; mkdir bin ; mkdir bin/deposit-calc; fi
+	$(CC) $(DIR)/main.o $(DIR)/deposit.o -o $(DUR)/$(EXECUTABLE) 
 
-$(MO): $(MC)
-	$(CC)  -c $(MC) -o $(MO)
+ 
+Testpr: $(DUT)/$(EXECUTABLE_TEST)
+$(DIT)/main.o: $(DAT)/main.c 
+	@if [ ! -d $(DIT) ] ; then echo "creating $(DIT)" ; mkdir build; mkdir build/test; fi
+	$(CC) $(CFLAGS) -c $(DAT)/main.c -o $(DIT)/main.o 
 
-$(MTO): $(MT)
-	 $(CC) -c $(MT) -o $(MTO)
+$(DIT)/deposit_test.o: $(DAT)/deposit_test.c
+	@if [ ! -d $(DIT) ] ; then echo "creating $(DIT)" ; mkdir build; mkdir build/test; fi
+	$(CC) $(CFLAGS) -c $(DAT)/deposit_test.c -o $(DIT)/deposit_test.o 
 
-$(DTO): $(DT)
-	 $(CC) -c $(DT) -o $(DTO)
+$(DIT)/validation_test.o: $(DAT)/validation_test.c
+	@if [ ! -d $(DIT) ] ; then echo "creating $(DIT)" ; mkdir build; mkdir build/test; fi
+	$(CC) $(CFLAGS) -c $(DAT)/validation_test.c -o $(DIT)/validation_test.o 
 
-$(VTO): $(VT)
-	 $(CC) -c $(VT) -o $(VTO)
+$(DUT)/$(EXECUTABLE_TEST): $(DIT)/main.o $(DIT)/deposit_test.o $(DIT)/validation_test.o $(DAR)/deposit.o
+	@if [ ! -d $(DUT) ] ; then echo "creating $(DUT)" ; mkdir bin; mkdir bin/deposit-calc-test; fi
+	$(CC) $(DIT)/main.o $(DIT)/deposit_test.o $(DIT)/validation_test.o $(DIR)/deposit.o -o $(DUT)/$(EXECUTABLE_TEST) 
 
+
+.PHONY : clean
 clean:
-	rm ./build/test/*.o
-	rm ./build/src/*.o
+	rm -rf build/src/*.o build/test/*.o bin/deposit-calc/* bin/deposit-calc-test/*

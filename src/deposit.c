@@ -1,34 +1,36 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include "deposit.h"
 
-int CheckInput(int depDay, int sum)
-{
-	if ((depDay >= 0) && (depDay <= 365) && (sum >= 10000))
-		return 1;
-	return 0;
+int FirstSrok0_30(int d, int ye){
+	int s=ye;
+	s=s/100*90;
+	return s;
 }
 
-int CalcSumDeposit(int depDay, int sum)
-{
-	float bonusPercent = 0;
-	if (sum >= 100000)
-		bonusPercent = 0.01;
-	if (depDay <= 30)
-	{
-		sum *= 0.9;
-	}
-	else if (depDay <= 120)
-	{
-		sum *= 1.0 + 0.02 + bonusPercent * 1;
-	}
-	else if (depDay <= 240)
-	{
-		sum *= 1.0 + 0.6 + bonusPercent * 2;
-	}
-	else if (depDay <= 365)
-	{
-		sum *= 1.0 + 0.12 + bonusPercent * 3;
-	}
-	return sum;
+int SecondSrok31_120(int d, int ye){
+	int s=ye;
+	double p;
+	if (d==1)p = 0.02;
+	if (d==2)p = 0.03;
+	s=s+s*p;
+	return s;
+}
+
+int ThirdSrok121_240(int d, int ye){
+	int s=ye;
+	double p;
+	if (d==1)p = 0.06;
+	if (d==2)p = 0.08;
+	s=s+s*p;
+	return s;
+
+}
+
+int FourthSrok241_365(int d, int ye){
+	int s=ye;
+	double p;
+	if (d==1)p = 0.12;
+	if (d==2)p = 0.15;
+	s=s+s*p;
+	return s;
+
 }
