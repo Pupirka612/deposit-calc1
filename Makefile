@@ -2,14 +2,12 @@ CC = gcc
 CFLAGS = -I thirdparty -I src -c -Wall -Werror
 EXECUTABLE = file 
 SOURCES = main.c deposit.c 
-OBJECTS = $(SOURCES: .c=.o)
 DIR = build/src
 DAR = src
 DUR = bin/deposit-calc
 
 EXECUTABLE_TEST = testik
 SOURCES_TEST = deposit_test.c main.c validation_test.c
-OBJECTS_TEST = $(SOURCES_TEST: .c=.o)
 DIT = build/test
 DAT = test
 DUT = bin/deposit-calc-test
